@@ -1,6 +1,6 @@
 // Edit these when you ship a new APK.
 const APK_PATH = 'downloads/TheBelt.apk';
-const APK_VERSION = '1.0';
+const APK_VERSION = '1.001';
 
 (function () {
   document.querySelectorAll('[data-version]').forEach(function (el) { el.textContent = APK_VERSION; });
