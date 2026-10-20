@@ -70,3 +70,29 @@ h1,h2,h3,.brand{font-family:var(--pixel);font-weight:400;line-height:1.3}
 .credits{font-size:12px}
 
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.btn{transition:none}}
+
+/* Game content sections */
+.stats{display:flex;flex-wrap:wrap;justify-content:center;gap:10px 28px;list-style:none;margin:48px 0 0;padding:0;color:var(--muted);font-size:14px}
+.stats strong{color:var(--amber);font-family:var(--pixel);font-size:16px;margin-right:6px}
+.gap{margin-top:56px}
+.loop{padding-left:0;list-style:none;counter-reset:l;display:grid;gap:14px;margin:0}
+.loop li{counter-increment:l;position:relative;padding:14px 16px 14px 56px;background:var(--card);border:1px solid var(--line);border-radius:4px;color:var(--muted)}
+.loop li strong{color:var(--text)}
+.loop li::before{content:counter(l);position:absolute;left:14px;top:12px;width:30px;height:30px;display:grid;place-items:center;background:var(--red);color:#fff;font-family:var(--pixel);font-size:12px;border-radius:4px}
+.list{display:grid;gap:8px;margin:0 auto 20px}
+.row{display:grid;grid-template-columns:150px 1fr;gap:16px;padding:10px 14px;background:var(--card);border:1px solid var(--line);border-radius:4px}
+.row strong{color:var(--amber)}
+.row span{color:var(--muted)}
+@media(max-width:480px){.row{grid-template-columns:1fr;gap:2px}}
+.section.alt>.card.boss{max-width:720px;margin-top:20px;border-left-color:var(--amber)}
+.subhead{font-size:13px;color:var(--amber);margin:32px 0 14px}
+.bullets{margin:0 0 12px;padding-left:20px;color:var(--muted)}
+.bullets li{margin-bottom:8px}
+.bullets strong{color:var(--text)}
+.tablewrap{overflow-x:auto;margin-top:24px}
+.tbl{width:100%;border-collapse:collapse;font-size:15px}
+.tbl caption{text-align:left;color:var(--muted);padding-bottom:10px;font-size:14px}
+.tbl th,.tbl td{padding:10px 14px;border:1px solid var(--line);text-align:left}
+.tbl thead th{background:var(--card);color:var(--amber);font-family:var(--pixel);font-weight:400;font-size:11px}
+.tbl tbody th{font-weight:600;color:var(--text)}
+.tbl td{color:var(--muted)}

@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>The Belt – Download for Android</title>
-<meta name="description" content="The Belt is a top-down zombie survival game for Android. Download the APK and fight your way through the horde.">
+<title>The Fatty – Download for Android</title>
+<meta name="description" content="The Fatty is a 2D top-down zombie action game for Android. Swing your belt, rescue villagers from cages, and build up your village between missions. Free APK download.">
 <meta name="theme-color" content="#0b0707">
-<meta property="og:title" content="The Belt – Download for Android">
-<meta property="og:description" content="Top-down zombie survival for Android. Free APK download.">
+<meta property="og:title" content="The Fatty – Download for Android">
+<meta property="og:description" content="Fight zombies with a belt, rescue the villagers and grow your village. Free APK download.">
 <meta property="og:type" content="website">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230b0707'/%3E%3Crect x='3' y='12' width='26' height='8' fill='%23c0392b'/%3E%3Crect x='13' y='10' width='6' height='12' fill='%23f2b134'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -18,11 +18,12 @@
 <body>
 
 <header class="nav">
-  <a class="brand" href="#top">THE BELT</a>
+  <a class="brand" href="#top">THE FATTY</a>
   <nav>
-    <a href="#features">Features</a>
+    <a href="#game">Game</a>
+    <a href="#zombies">Zombies</a>
+    <a href="#village">Village</a>
     <a href="#install">Install</a>
-    <a href="#roadmap">Roadmap</a>
     <a class="nav-cta" href="#download">Download</a>
   </nav>
 </header>
@@ -30,9 +31,9 @@
 <main id="top">
   <section class="hero">
     <div class="glow" aria-hidden="true"></div>
-    <p class="eyebrow">Android &middot; Top-down zombie survival</p>
-    <h1>THE BELT</h1>
-    <p class="lead">Swing your belt, survive the horde, and rescue the villagers trapped in cages. Face five zombie types, upgrade your gear and take down the boss.</p>
+    <p class="eyebrow">Android &middot; 2D top-down zombie action</p>
+    <h1>THE FATTY</h1>
+    <p class="lead">Fight zombies with a belt and break open the cages to rescue the trapped villagers. They move into your village, go to work, and their work pays for the upgrades that make you stronger for the next mission.</p>
 
     <div id="download" class="dl">
       <a id="dl-btn" class="btn" href="downloads/TheBelt.apk" download>
@@ -46,36 +47,162 @@
       </ul>
       <p class="note">First time installing an APK? <a href="#install">Read the 30-second guide.</a></p>
     </div>
+
+    <ul class="stats" aria-label="The game in numbers">
+      <li><strong>10</strong> missions</li>
+      <li><strong>5</strong> zombie types + a boss</li>
+      <li><strong>8</strong> village jobs</li>
+      <li><strong>5</strong> power-ups</li>
+    </ul>
   </section>
 
-  <section id="features" class="section">
-    <h2>What you get</h2>
+  <section id="game" class="section">
+    <h2>How a run goes</h2>
+    <ol class="loop">
+      <li><strong>Pick a mission</strong> in the main menu.</li>
+      <li><strong>Play the stage.</strong> Fight the zombies, open power-up chests and break the cages to free the villagers.</li>
+      <li><strong>Finish the mission.</strong> The chest screen pays out coins and gems the first time you complete it.</li>
+      <li><strong>Go to the village.</strong> The rescued villagers join it. Give them jobs, spend what they make on upgrades, then head back out. Each mission you complete moves the village forward one day.</li>
+    </ol>
+
+    <h2 class="gap">Combat</h2>
     <div class="grid">
       <article class="card">
-        <h3>Five kinds of zombie</h3>
-        <p>Normal, Runner, Crawler, Brute and Spitter. Each one forces you to fight differently.</p>
+        <h3>A belt you actually swing</h3>
+        <p>Move with the joystick and swing with one button. The belt is a physics rope: it whips up from under, out in front and over your head. On a hit it knocks zombies back, wraps round the target and flops off.</p>
       </article>
       <article class="card">
-        <h3>Boss fight</h3>
-        <p>Survive the missions and stages until the level 5 boss shows up.</p>
+        <h3>Spam combo</h3>
+        <p>Tap fast to build heat. With heat your swings get up to 2.5&times; faster and the slap sound climbs in pitch. A tap during a swing chains straight into the next one. Stop tapping and it cools off.</p>
       </article>
       <article class="card">
-        <h3>Rescue villagers</h3>
-        <p>Break open the cages and get people out alive before the horde reaches them.</p>
+        <h3>Stamina</h3>
+        <p>Running and attacking both draw from your stamina bar, so you can't just sprint and swing forever.</p>
       </article>
       <article class="card">
-        <h3>Chests and upgrades</h3>
-        <p>Earn coins and gems, open chests and upgrade yourself between missions.</p>
+        <h3>Day, night and flashlight</h3>
+        <p>A day/night cycle lights the buildings at night, and your flashlight comes out on its own when it gets dark. Roofs fade away when you walk inside stone buildings.</p>
       </article>
       <article class="card">
-        <h3>Power-ups</h3>
-        <p>Grab a Beer, Burger, Bean or Energy Drink mid-fight for a boost.</p>
-      </article>
-      <article class="card">
-        <h3>Made for phones</h3>
-        <p>On-screen joystick, landscape play, and a flashlight for the dark.</p>
+        <h3>Everything on screen</h3>
+        <p>Health and stamina bars, a kill counter, an arrow pointing to the exit and a minimap that grows when you tap it.</p>
       </article>
     </div>
+
+    <h2 class="gap">Power-ups</h2>
+    <p class="sub">Found in chests during a mission.</p>
+    <div class="grid">
+      <article class="card"><h3>&#127866; Beer</h3><p>A damage rage, followed by a hangover.</p></article>
+      <article class="card"><h3>&#127828; Burger</h3><p>Restores health.</p></article>
+      <article class="card"><h3>&#9889; Energy drink</h3><p>Infinite stamina for a while.</p></article>
+      <article class="card"><h3>&#128168; Fart</h3><p>Has its own button, unlocked after mission 5. Leaves a poison gas cloud.</p></article>
+      <article class="card"><h3>&#129752; Beans</h3><p>Heal you and leave a gas trail behind you.</p></article>
+    </div>
+  </section>
+
+  <section id="zombies" class="section alt">
+    <h2>The zombies</h2>
+    <p class="sub">Each type forces you to fight differently.</p>
+    <div class="list">
+      <div class="row"><strong>Normal</strong><span>Walks up and hits you.</span></div>
+      <div class="row"><strong>Crawler</strong><span>Low and slow, crawls along the ground.</span></div>
+      <div class="row"><strong>Runner</strong><span>Fast.</span></div>
+      <div class="row"><strong>Brute</strong><span>Big, tough and hard to stagger.</span></div>
+      <div class="row"><strong>Spitter</strong><span>Stays at range and spits at you.</span></div>
+    </div>
+    <div class="card boss">
+      <h3>Boss: the Log Brute</h3>
+      <p>Waiting at the end of mission 5. It marks a spot with a red light, then slams its log down on it. After a set of slams it runs out of breath, and that is your window to hit it. Below half health it enrages: rocks rain down and Runners join the fight.</p>
+    </div>
+  </section>
+
+  <section id="missions" class="section">
+    <h2>Ten missions, two regions</h2>
+    <div class="grid">
+      <article class="card">
+        <h3>Forest</h3>
+        <p>Missions 1&ndash;4 are rescues, and mission 5 is Clear the Forest. The zombie types show up one by one, ending with the Log Brute.</p>
+      </article>
+      <article class="card">
+        <h3>Swamp</h3>
+        <p>Missions 6&ndash;9 are rescues, and mission 10 is Drain the Swamp. Expect Spitters, sunken ruins, a bog graveyard and a drowned village.</p>
+      </article>
+    </div>
+    <div class="tablewrap">
+      <table class="tbl">
+        <caption>Difficulty and rewards rise with every mission</caption>
+        <thead><tr><th></th><th>Mission 1</th><th>Mission 10</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Zombies</th><td>15</td><td>45</td></tr>
+          <tr><th scope="row">Zombie health and damage</th><td>&times;1.0</td><td>&times;1.5</td></tr>
+          <tr><th scope="row">Reward</th><td>50 coins, 2 gems</td><td>800 coins, 6 gems</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="village" class="section alt">
+    <h2>Your village</h2>
+    <p class="sub">A walled village with a gate, farm, river, lumber yard, mine, forge, restaurant and market stalls. Villagers work, eat and sleep on a 24-hour clock and dress for their job.</p>
+
+    <h3 class="subhead">Jobs</h3>
+    <div class="list">
+      <div class="row"><strong>Farmer</strong><span>Food.</span></div>
+      <div class="row"><strong>Water carrier</strong><span>Water.</span></div>
+      <div class="row"><strong>Lumberjack</strong><span>Wood.</span></div>
+      <div class="row"><strong>Miner</strong><span>Ore, plus a 10% chance of a gem each day.</span></div>
+      <div class="row"><strong>Cook</strong><span>Makes food last longer.</span></div>
+      <div class="row"><strong>Blacksmith</strong><span>Crafts items at the forge.</span></div>
+      <div class="row"><strong>Seller</strong><span>Coins (at most 6 sellers).</span></div>
+      <div class="row"><strong>Guard</strong><span>Mans a watchtower at night.</span></div>
+    </div>
+    <p class="note">Every villager eats food and drinks water each day.</p>
+
+    <h3 class="subhead">Upgrades</h3>
+    <ul class="bullets">
+      <li><strong>Villagers</strong> gain XP by working. Promote them to level 2 or 3 for coins and tool kits, and stars appear over their heads.</li>
+      <li><strong>Buildings:</strong> each of the 7 work buildings upgrades to level 3 for coins, wood, ore and building beams.</li>
+      <li><strong>Output:</strong> every villager level above 1 adds 25%, and so does every building level, up to &times;2.25 in total.</li>
+    </ul>
+
+    <h3 class="subhead">The forge</h3>
+    <ul class="bullets">
+      <li><strong>Upgrade yourself:</strong> Health, Belt damage, Stamina, Speed and Fart, paid for with coins, ore and wood.</li>
+      <li><strong>Crafting:</strong> your blacksmiths make tool kits and building beams for village upgrades, plus the iron plate, spiked belt and running boots, which each boost your next mission only.</li>
+      <li>The forge's level sets how many items are made at once. More blacksmiths don't make things cheaper.</li>
+    </ul>
+
+    <h3 class="subhead">Beer party</h3>
+    <p>Every 2 days at 19:00 the clock stops until you walk to the restaurant terrace. Then you get 20 seconds to tap as fast as you can and chug beers. Every beer you finish gives a random reward.</p>
+  </section>
+
+  <section id="horde" class="section">
+    <h2>The nightly horde</h2>
+    <p class="sub">A horn sounds at 20:00 and the horde attacks at 21:00, every night. Until it's beaten, you can't leave the village.</p>
+    <div class="grid">
+      <article class="card">
+        <h3>It grows</h3>
+        <p>5 zombies on the first night, 2 more for every night already fought, up to 30. They come in 2&ndash;3 groups, and their types and toughness follow your furthest completed mission.</p>
+      </article>
+      <article class="card">
+        <h3>New roads</h3>
+        <p>They come from the west. The south road opens after 3 nights and the north road after 6.</p>
+      </article>
+      <article class="card">
+        <h3>Raids</h3>
+        <p>Zombies that reach the stores steal food, water, wood and ore in a sack. Kill them to get it back. At most a quarter of each stock can go in one night.</p>
+      </article>
+      <article class="card">
+        <h3>If you go down</h3>
+        <p>You wake at 07:00 with full health. Every zombie left takes one raid's worth, within the same cap. You never lose coins or gems.</p>
+      </article>
+    </div>
+    <h3 class="subhead">Defenses</h3>
+    <ul class="bullets">
+      <li><strong>Barricades:</strong> place them from the Build panel for 8 wood each, up to 20. Zombies stop and hack at them. Stand next to one to repair it.</li>
+      <li><strong>Watchtowers:</strong> build them on the 11 stone pads outside the wall, up to level 3. Each level adds health, range, damage and fire rate. A tower only shoots with a Guard on it, and a higher-level guard shoots harder.</li>
+    </ul>
+    <p class="note">Each screen shows a step-by-step guide the first time you open it.</p>
   </section>
 
   <section id="install" class="section alt">
@@ -85,22 +212,23 @@
       <li><strong>Download</strong> the APK with the button above, on your phone.</li>
       <li>Open the file when the download finishes. If Android blocks it, tap <strong>Settings</strong> and turn on <strong>Allow from this source</strong> for your browser.</li>
       <li>Go back and tap <strong>Install</strong>. If Play Protect warns you, choose <strong>Install anyway</strong>.</li>
-      <li>Open <strong>The Belt</strong> and play.</li>
+      <li>Open <strong>The Fatty</strong> and play.</li>
     </ol>
     <p class="note">On Android 7.x the switch is called <em>Unknown sources</em> and lives in Settings &rarr; Security.</p>
   </section>
 
   <section id="roadmap" class="section">
     <h2>Coming next</h2>
-    <div class="card wide">
-      <h3>The Castle</h3>
-      <p>A new map where every villager you've saved comes to live. Assign them jobs so they work for you and help you level up. In development.</p>
+    <div class="grid">
+      <article class="card"><h3>More sounds</h3><p>Proper sounds for the horde horn, arrows and breaking wood. For now they borrow existing sounds.</p></article>
+      <article class="card"><h3>A third region</h3><p>A new region, and possibly a swamp boss.</p></article>
+      <article class="card"><h3>Balancing</h3><p>Tuning the difficulty and testing the tap games on more phones.</p></article>
     </div>
   </section>
 </main>
 
 <footer class="footer">
-  <p><strong>THE BELT</strong> &middot; <a href="https://github.com/OrlinStefanov/TheBeltOriginal">GitHub</a></p>
+  <p><strong>THE FATTY</strong> &middot; <a href="https://github.com/OrlinStefanov/TheBeltOriginal">GitHub</a></p>
   <p class="credits">Built with Unity. Includes licensed art and effects from the Unity Asset Store, including Cainos, Tiny Swords and Matthew Guz. Only install APKs from this page.</p>
 </footer>
 
