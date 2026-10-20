@@ -1,13 +1,18 @@
+import { createHash, randomBytes } from "node:crypto";
 import type { FastifyPluginAsyncZod } from "fastify-type-provider-zod";
 import { z } from "zod";
+import type { Config } from "../config.js";
 import { createLoginThrottle } from "../lib/login-throttle.js";
-import type { AuthService } from "../plugins/auth.js";
+import { OAUTH_PROVIDERS, type AuthService } from "../plugins/auth.js";
 
 interface Options {
   auth: AuthService;
+  config: Config;
 }
 
-export const authRoutes: FastifyPluginAsyncZod<Options> = async (app, { auth }) => {
+const LOGIN_ERROR_PAGE = "/community/?error=login";
+
+export const authRoutes: FastifyPluginAsyncZod<Options> = async (app, { auth, config }) => {
   const cookies = app.sessionCookies;
   const throttle = createLoginThrottle();
 
@@ -71,6 +76,59 @@ export const authRoutes: FastifyPluginAsyncZod<Options> = async (app, { auth }) 
       if (access) await auth.signOut(access);
       cookies.clear(reply);
       return reply.code(204).send(null);
+    },
+  );
+
+  // ---- OAuth (Google, Discord) with PKCE ---------------------------------------------------
+  // Start: a random verifier goes into a short-lived cookie; only its hash is sent onwards. The
+  // callback must present the same verifier, so a sign-in started by someone else cannot be
+  // completed in this browser (login CSRF).
+  app.get(
+    "/oauth/:provider",
+    {
+      config: { rateLimit: { max: 20, timeWindow: "1 minute" } },
+      schema: {
+        tags: ["account"],
+        summary: "Start signing in with Google or Discord (redirects)",
+        params: z.object({ provider: z.enum(OAUTH_PROVIDERS) }),
+      },
+    },
+    async (req, reply) => {
+      const verifier = randomBytes(32).toString("base64url");
+      const challenge = createHash("sha256").update(verifier).digest("base64url");
+      cookies.pkce.set(reply, verifier);
+      return reply.redirect(auth.oauthUrl(req.params.provider, `${config.PUBLIC_URL}/api/auth/callback`, challenge));
+    },
+  );
+
+  app.get(
+    "/callback",
+    {
+      config: { rateLimit: { max: 20, timeWindow: "1 minute" } },
+      schema: {
+        tags: ["account"],
+        summary: "OAuth return point: exchanges the code for a session, sets cookies, redirects",
+        querystring: z.object({
+          code: z.string().max(2048).optional(),
+          error: z.string().max(200).optional(),
+        }),
+      },
+    },
+    async (req, reply) => {
+      const verifier = req.cookies[cookies.pkce.name];
+      cookies.pkce.clear(reply); // one use only, whatever happens next
+      const { code, error } = req.query;
+      // The redirect targets below are fixed local paths: nothing from the request is echoed back.
+      if (error || !code || !verifier) return reply.redirect(LOGIN_ERROR_PAGE);
+
+      const session = await auth.exchangeCode(code, verifier).catch((err) => {
+        req.log.error({ err }, "oauth code exchange failed");
+        return null;
+      });
+      if (!session) return reply.redirect(LOGIN_ERROR_PAGE);
+
+      cookies.set(reply, session);
+      return reply.redirect("/community/");
     },
   );
 };

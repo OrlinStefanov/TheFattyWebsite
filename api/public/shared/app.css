@@ -1,6 +1,6 @@
 /* Self-hosted fonts (SIL Open Font License): no third-party requests. Latin subset. */
-@font-face{font-family:'Inter';font-style:normal;font-weight:400 600;font-display:swap;src:url(/admin/fonts/inter-latin.woff2) format('woff2')}
-@font-face{font-family:'Press Start 2P';font-style:normal;font-weight:400;font-display:swap;src:url(/admin/fonts/press-start-2p-latin.woff2) format('woff2')}
+@font-face{font-family:'Inter';font-style:normal;font-weight:400 600;font-display:swap;src:url(/shared/fonts/inter-latin.woff2) format('woff2')}
+@font-face{font-family:'Press Start 2P';font-style:normal;font-weight:400;font-display:swap;src:url(/shared/fonts/press-start-2p-latin.woff2) format('woff2')}
 /* Admin pages. Self-contained: these pages are served by the API, not GitHub Pages. */
 :root{
   --bg:#0b0707;
@@ -120,3 +120,39 @@ a:focus-visible{outline:3px solid var(--amber);outline-offset:3px}
 .rank-value{color:var(--muted);font-variant-numeric:tabular-nums}
 .rank .empty{display:block;grid-column:1/-1}
 .cols+.panel{margin-top:16px}
+
+/* Community */
+.muted{color:var(--muted);font-size:14px}
+.banner{background:#2a1212;border:1px solid var(--red);border-radius:4px;padding:12px 14px;margin:0 0 16px}
+.summary{display:grid;grid-template-columns:minmax(160px,220px) 1fr;gap:24px;align-items:center}
+@media(max-width:560px){.summary{grid-template-columns:1fr}}
+.score{display:flex;flex-direction:column;gap:6px}
+.score-num{font-size:clamp(48px,10vw,64px);line-height:1.1;font-weight:600;color:var(--amber)}
+.stars{color:var(--amber);letter-spacing:2px;white-space:nowrap}
+.dist{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.dist li{display:grid;grid-template-columns:44px 1fr 32px;gap:10px;align-items:center;font-size:14px}
+.dist-label{color:var(--muted)}
+.oauth{display:flex;flex-wrap:wrap;gap:12px;margin-top:16px}
+a.btn-solid{display:inline-block;text-decoration:none;text-align:center}
+.btn-alt{background:#3a2a2a;border-bottom-color:#241818}
+.btn-alt:hover{background:#4a3636}
+.form textarea{background:var(--card);border:1px solid var(--line);border-radius:4px;color:var(--text);font:inherit;padding:12px;width:100%;resize:vertical}
+.form textarea:focus-visible,.form input[type=text]:focus-visible{outline:3px solid var(--amber);outline-offset:3px}
+.form input[type=text]{background:var(--card);border:1px solid var(--line);border-radius:4px;color:var(--text);font:inherit;padding:12px;width:100%;margin-bottom:10px}
+.rate{border:0;margin:0 0 10px;padding:0;min-width:0}
+.rate legend{color:var(--muted);font-size:14px;margin-bottom:8px;padding:0}
+.rate-row{display:flex;flex-direction:row-reverse;justify-content:flex-end;gap:6px}
+.rate input{position:absolute;opacity:0;width:1px;height:1px}
+.rate label{cursor:pointer;width:44px;height:44px;display:grid;place-items:center;background:var(--card);border:1px solid var(--line);border-radius:4px;color:var(--muted);font-weight:600;margin:0}
+.rate label::after{content:"\2605";margin-left:2px}
+.rate input:checked+label,.rate input:checked~label{background:var(--amber);border-color:var(--amber);color:#000}
+.rate label:hover,.rate label:hover~label{border-color:var(--amber)}
+.rate input:focus-visible+label{outline:3px solid var(--amber);outline-offset:3px}
+.row-actions{display:flex;flex-wrap:wrap;gap:16px;align-items:center}
+.reviews{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.review{border:1px solid var(--line);border-left:4px solid var(--red);border-radius:4px;padding:14px 16px;background:var(--bg2)}
+.review-head{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:baseline}
+.review-body{margin:8px 0 0;white-space:pre-wrap;overflow-wrap:anywhere;color:var(--text)}
+#delete-confirm{display:grid;gap:12px;justify-items:start}
+.status-hidden{color:#ff8f84}
+.mod-actions{display:flex;gap:12px;flex-wrap:wrap}

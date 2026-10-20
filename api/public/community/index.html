@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Community – The Fatty</title>
+<meta name="theme-color" content="#0b0707">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230b0707'/%3E%3Crect x='3' y='12' width='26' height='8' fill='%23c0392b'/%3E%3Crect x='13' y='10' width='6' height='12' fill='%23f2b134'/%3E%3C/svg%3E">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="/shared/fonts/press-start-2p-latin.woff2">
+<link rel="stylesheet" href="/shared/app.css">
+</head>
+<body>
+
+<header class="nav">
+  <a class="brand" href="https://orlinstefanov.github.io/TheFattyWebsite/">THE FATTY</a>
+  <nav aria-label="Account">
+    <a id="admin-link" class="link-btn" href="/admin/" hidden>Admin</a>
+    <span id="who" class="who" hidden></span>
+    <button id="signout" class="link-btn" type="button" hidden>Sign out</button>
+  </nav>
+</header>
+
+<main class="admin community">
+  <div class="toolbar">
+    <h1>Community</h1>
+    <a class="link-btn" href="https://orlinstefanov.github.io/TheFattyWebsite/">&larr; Back to the game page</a>
+  </div>
+
+  <p id="banner" class="banner" role="alert" hidden></p>
+
+  <section class="panel" aria-labelledby="sum-h">
+    <h2 id="sum-h">What players think</h2>
+    <div class="summary">
+      <div class="score">
+        <span id="avg" class="score-num">–</span>
+        <span id="avg-stars" class="stars" aria-hidden="true"></span>
+        <span id="count" class="muted">Loading…</span>
+      </div>
+      <ul id="dist" class="dist" aria-label="Ratings by star"></ul>
+    </div>
+  </section>
+
+  <section id="signin" class="panel" hidden aria-labelledby="signin-h">
+    <h2 id="signin-h">Write a review</h2>
+    <p>Sign in to rate the game and leave a comment. We only use your sign-in to know who you are: your email is never shown, and you choose the public name.</p>
+    <div class="oauth">
+      <a class="btn-solid" href="/api/auth/oauth/discord">Continue with Discord</a>
+      <a class="btn-solid btn-alt" href="/api/auth/oauth/google">Continue with Google</a>
+    </div>
+  </section>
+
+  <section id="username-panel" class="panel" hidden aria-labelledby="name-h">
+    <h2 id="name-h">Pick a public name</h2>
+    <p>This is shown next to your review. 3 to 30 letters, digits or underscores.</p>
+    <form id="username-form" class="form" novalidate>
+      <label for="username">Public name</label>
+      <input id="username" name="username" type="text" autocomplete="nickname" maxlength="30" required>
+      <p id="username-msg" class="form-error" role="alert" hidden></p>
+      <button class="btn-solid" type="submit">Save name</button>
+    </form>
+  </section>
+
+  <section id="review-panel" class="panel" hidden aria-labelledby="rev-h">
+    <h2 id="rev-h">Your review</h2>
+    <form id="review-form" class="form" novalidate>
+      <fieldset class="rate">
+        <legend>Your rating</legend>
+        <div class="rate-row">
+          <input type="radio" name="rating" id="r5" value="5"><label for="r5" title="5 stars">5</label>
+          <input type="radio" name="rating" id="r4" value="4"><label for="r4" title="4 stars">4</label>
+          <input type="radio" name="rating" id="r3" value="3"><label for="r3" title="3 stars">3</label>
+          <input type="radio" name="rating" id="r2" value="2"><label for="r2" title="2 stars">2</label>
+          <input type="radio" name="rating" id="r1" value="1"><label for="r1" title="1 star">1</label>
+        </div>
+      </fieldset>
+      <label for="body">What would make the game better?</label>
+      <textarea id="body" name="body" rows="5" maxlength="1000" required></textarea>
+      <p class="muted"><span id="chars">0</span> / 1000</p>
+      <p id="review-msg" class="form-error" role="alert" hidden></p>
+      <div class="row-actions">
+        <button id="review-save" class="btn-solid" type="submit">Post review</button>
+        <button id="review-delete" class="link-btn" type="button" hidden>Delete my review</button>
+      </div>
+    </form>
+    <p id="hidden-note" class="muted" hidden>A moderator has hidden your review. You can still edit it.</p>
+  </section>
+
+  <section class="panel" aria-labelledby="list-h">
+    <h2 id="list-h">Reviews</h2>
+    <ul id="reviews" class="reviews"></ul>
+    <p id="reviews-empty" class="empty" hidden>No reviews yet. Be the first!</p>
+    <button id="more" class="link-btn" type="button" hidden>Show more</button>
+  </section>
+
+  <section id="account" class="panel" hidden aria-labelledby="acc-h">
+    <h2 id="acc-h">Your account</h2>
+    <button id="delete-open" class="link-btn" type="button">Delete my account</button>
+    <div id="delete-confirm" hidden>
+      <p>This permanently deletes your account, your public name and your review. It cannot be undone.</p>
+      <button id="delete-yes" class="btn-solid" type="button">Yes, delete everything</button>
+      <button id="delete-no" class="link-btn" type="button">Cancel</button>
+    </div>
+  </section>
+</main>
+
+<script src="/shared/api.js"></script>
+<script src="/community/community.js"></script>
+</body>
+</html>

@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import { buildApp } from "../src/app.js";
 import { loadConfig } from "../src/config.js";
 import type { AuthService, AuthUser } from "../src/plugins/auth.js";
+import { fakeCommunity } from "./fakes.js";
 
 const env = {
   NODE_ENV: "test",
@@ -15,8 +16,8 @@ const env = {
 const ORIGIN = "https://api.example.com";
 
 const users: Record<string, AuthUser> = {
-  "user-token": { id: "u1", email: "u@x.com", emailVerified: true, role: "user" },
-  "admin-token": { id: "a1", email: "a@x.com", emailVerified: true, role: "admin" },
+  "user-token": { id: "u1", email: "u@x.com", emailVerified: true, username: "player_one", role: "user" },
+  "admin-token": { id: "a1", email: "a@x.com", emailVerified: true, username: null, role: "admin" },
 };
 
 const unusedAnalytics = {
@@ -38,12 +39,15 @@ async function setup(overrides: Record<string, string> = {}, authOverrides: Part
     signOut: async (t) => {
       signedOut.push(t);
     },
+    oauthUrl: () => "https://example.supabase.co/auth/v1/authorize",
+    exchangeCode: async () => null,
     ...authOverrides,
   };
   const app = await buildApp(loadConfig({ ...env, ...overrides }), {
     auth,
     downloads: { record: async () => {} },
     analytics: unusedAnalytics,
+    community: fakeCommunity(),
   });
   return { app, signedOut };
 }
@@ -260,7 +264,7 @@ describe("headers and static files", () => {
   it("serves the self-hosted fonts the admin pages need", async () => {
     const { app } = await setup();
     for (const f of ["inter-latin.woff2", "press-start-2p-latin.woff2"]) {
-      const res = await app.inject({ method: "GET", url: `/admin/fonts/${f}` });
+      const res = await app.inject({ method: "GET", url: `/shared/fonts/${f}` });
       expect(res.statusCode).toBe(200);
       expect(res.headers["content-type"]).toMatch(/font\/woff2/);
       expect(res.rawPayload.subarray(0, 4).toString()).toBe("wOF2");

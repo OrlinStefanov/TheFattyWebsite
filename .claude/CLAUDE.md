@@ -30,7 +30,8 @@ Keep website copy consistent with this; do not invent features.
 - CSRF: state-changing auth routes require `Origin === PUBLIC_URL`; CORS never allows credentials. Login has a per-IP and a per-account limit.
 - Client IP: `trustProxy` trusts only `TRUST_PROXY_HOPS` (default 1) hops. Never set it to `true`: Render does not strip a client-sent X-Forwarded-For.
 - Download button links directly to the R2 URL and fires a keepalive `fetch` to `/api/download`, so the download never depends on a sleeping Render instance.
-- Email: Supabase built-in mailer is far too limited. Use custom SMTP (Resend) plus Google/Discord OAuth. Reviews require a verified email.
+- Email: Supabase built-in mailer is far too limited, and Resend cannot send to arbitrary users without an owned domain. So the community page uses Discord + Google OAuth (PKCE, handled server-side in `api/src/routes/auth.ts`); email/password stays for the admin only. Reviews require a verified email and a public username (3-30 chars, unique ignoring case, impersonation words blocked).
+- Community: `/community/` is served by the API (first-party cookie), reached from Pages through the `community.html` gateway. Reviews appear immediately; admins hide/unhide/delete at `/admin/reviews.html`. Public review GETs are cookie-less and never cached; all user text is rendered with `textContent` only. Never add `aggregateRating` markup unless the numbers are real and shown.
 - No custom domain: site is on `github.io`, so CORS must allow exactly that origin.
 
 ## Rules

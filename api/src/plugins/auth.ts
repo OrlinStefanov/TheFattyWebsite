@@ -7,6 +7,7 @@ export interface AuthUser {
   id: string;
   email: string | null;
   emailVerified: boolean;
+  username: string | null;
   role: "user" | "admin";
 }
 
@@ -18,7 +19,14 @@ export interface AuthService {
   /** Null means the refresh token is invalid or expired. */
   refresh(refreshToken: string): Promise<Session | null>;
   signOut(accessToken: string): Promise<void>;
+  /** The Supabase URL that starts an OAuth sign-in (PKCE) and returns to `redirectTo`. */
+  oauthUrl(provider: OAuthProvider, redirectTo: string, codeChallenge: string): string;
+  /** Trades the one-time OAuth `code` plus the PKCE verifier for a session; null if rejected. */
+  exchangeCode(code: string, codeVerifier: string): Promise<Session | null>;
 }
+
+export const OAUTH_PROVIDERS = ["google", "discord"] as const;
+export type OAuthProvider = (typeof OAUTH_PROVIDERS)[number];
 
 declare module "fastify" {
   interface FastifyRequest {

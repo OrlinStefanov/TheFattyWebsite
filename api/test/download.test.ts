@@ -4,6 +4,7 @@ import { loadConfig } from "../src/config.js";
 import { hashIp } from "../src/lib/privacy.js";
 import { parseUserAgent } from "../src/lib/ua.js";
 import type { DownloadEvent, DownloadStore } from "../src/services/downloads.js";
+import { fakeAuth, fakeCommunity } from "./fakes.js";
 
 const env = {
   NODE_ENV: "test",
@@ -24,7 +25,8 @@ async function setup(overrides: Record<string, string> = {}, fail = false) {
     },
   };
   const app = await buildApp(loadConfig({ ...env, ...overrides }), {
-    auth: { authenticate: async () => null, signIn: async () => null, refresh: async () => null, signOut: async () => {} },
+    auth: fakeAuth(),
+    community: fakeCommunity(),
     downloads,
     analytics: { downloads: async () => { throw new Error("unused"); } },
   });

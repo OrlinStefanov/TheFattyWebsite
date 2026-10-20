@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Reviews – Admin – The Fatty</title>
+<meta name="theme-color" content="#0b0707">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230b0707'/%3E%3Crect x='3' y='12' width='26' height='8' fill='%23c0392b'/%3E%3Crect x='13' y='10' width='6' height='12' fill='%23f2b134'/%3E%3C/svg%3E">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="/shared/fonts/press-start-2p-latin.woff2">
+<link rel="stylesheet" href="/shared/app.css">
+</head>
+<body>
+
+<header class="nav">
+  <a class="brand" href="https://orlinstefanov.github.io/TheFattyWebsite/">THE FATTY</a>
+  <nav aria-label="Admin">
+    <a class="link-btn" href="/admin/">Downloads</a>
+    <button id="signout" class="link-btn" type="button">Sign out</button>
+  </nav>
+</header>
+
+<main class="admin">
+  <section id="denied" class="panel" hidden>
+    <h1>No access</h1>
+    <p>This account doesn't have admin rights.</p>
+  </section>
+
+  <div id="dash" hidden>
+    <div class="toolbar">
+      <h1>Reviews</h1>
+      <div class="seg" role="group" aria-label="Filter">
+        <button type="button" data-status="all" aria-pressed="true">All</button>
+        <button type="button" data-status="visible">Visible</button>
+        <button type="button" data-status="hidden">Hidden</button>
+      </div>
+    </div>
+    <p id="msg" class="banner" role="alert" hidden></p>
+    <section class="panel">
+      <div class="tablewrap">
+        <table class="data" id="table">
+          <thead><tr><th>Date</th><th>Player</th><th>Rating</th><th>Review</th><th>Status</th><th>Actions</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <p id="empty" class="empty" hidden>No reviews here.</p>
+      <button id="more" class="link-btn" type="button" hidden>Show more</button>
+    </section>
+  </div>
+</main>
+
+<script src="/shared/api.js"></script>
+<script src="/admin/js/reviews.js"></script>
+</body>
+</html>

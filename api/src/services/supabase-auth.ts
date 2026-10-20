@@ -19,7 +19,7 @@ export function createSupabaseAuth(config: Config): AuthService {
 
   // Plain REST calls instead of a shared supabase-js client: that client keeps the last signed-in
   // session in memory, which must never leak between different visitors.
-  async function tokenRequest(grant: "password" | "refresh_token", body: object) {
+  async function tokenRequest(grant: "password" | "refresh_token" | "pkce", body: object) {
     const res = await fetch(`${authUrl}/token?grant_type=${grant}`, {
       method: "POST",
       headers: { "Content-Type": "application/json", apikey: config.SUPABASE_ANON_KEY },
@@ -39,7 +39,7 @@ export function createSupabaseAuth(config: Config): AuthService {
 
       const { data: profile } = await supabase
         .from("profiles")
-        .select("role")
+        .select("role, username")
         .eq("id", data.user.id)
         .maybeSingle();
 
@@ -47,10 +47,22 @@ export function createSupabaseAuth(config: Config): AuthService {
         id: data.user.id,
         email: data.user.email ?? null,
         emailVerified: Boolean(data.user.email_confirmed_at),
+        username: profile?.username ?? null,
         // Fail closed: anything other than an explicit 'admin' is a normal user.
         role: profile?.role === "admin" ? "admin" : "user",
       };
     },
+
+    oauthUrl(provider, redirectTo, codeChallenge) {
+      const q = new URLSearchParams({
+        provider,
+        redirect_to: redirectTo,
+        code_challenge: codeChallenge,
+        code_challenge_method: "s256",
+      });
+      return `${authUrl}/authorize?${q}`;
+    },
+    exchangeCode: (code, codeVerifier) => tokenRequest("pkce", { auth_code: code, code_verifier: codeVerifier }),
 
     signIn: (email, password) => tokenRequest("password", { email, password }),
     refresh: (refreshToken) => tokenRequest("refresh_token", { refresh_token: refreshToken }),

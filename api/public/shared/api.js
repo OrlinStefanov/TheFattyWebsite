@@ -58,10 +58,13 @@
 
   // ---- requests -----------------------------------------------------------
   // Resolves to { status, data }. Rejects with Error('timeout' | 'network').
-  function request(method, path, body) {
+  // `fresh` bypasses the browser cache: the public review list is cacheable for 30 seconds, but
+  // right after someone changes their own review they must see the change.
+  function request(method, path, body, fresh) {
     var ctrl = new AbortController();
     var t = setTimeout(function () { ctrl.abort(); }, TIMEOUT_MS);
     var opts = { method: method, credentials: 'same-origin', signal: ctrl.signal, headers: {} };
+    if (fresh) opts.cache = 'no-store';
     if (body !== undefined) {
       opts.headers['Content-Type'] = 'application/json';
       opts.body = JSON.stringify(body);
@@ -82,7 +85,8 @@
   }
 
   window.Fatty = {
-    apiJson: function (path) { return request('GET', path); },
+    apiJson: function (path, fresh) { return request('GET', path, undefined, fresh); },
+    send: function (method, path, body) { return request(method, path, body); },
     login: function (email, password) { return request('POST', '/api/auth/login', { email: email, password: password }); },
     logout: function () { return request('POST', '/api/auth/logout', {}); }
   };

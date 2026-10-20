@@ -3,6 +3,9 @@
 (function () {
   var API = (window.FATTY_CONFIG && window.FATTY_CONFIG.API_URL) || '';
   var msg = document.getElementById('gw-msg');
+  // Where to go once the API is awake; only the two known pages are allowed.
+  var TARGETS = { admin: '/admin/', community: '/community/' };
+  var target = TARGETS[document.body.getAttribute('data-target')] || TARGETS.admin;
   var started = Date.now();
   var GIVE_UP_MS = 120000;
   var overlay = null, secondsEl = null, ticker = null;
@@ -50,7 +53,7 @@
       .then(function (ok) {
         if (ok) {
           clearTimeout(wakeTimer);
-          location.replace(API + '/admin/');
+          location.replace(API + target);
         } else if (Date.now() - started > GIVE_UP_MS) {
           giveUp();
         } else {

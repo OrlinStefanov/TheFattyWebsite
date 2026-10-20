@@ -4,6 +4,7 @@ import { loadConfig } from "../src/config.js";
 import type { AuthService, AuthUser } from "../src/plugins/auth.js";
 import type { AnalyticsStore } from "../src/services/analytics.js";
 import type { DownloadStore } from "../src/services/downloads.js";
+import { fakeCommunity } from "./fakes.js";
 
 const env = {
   NODE_ENV: "test",
@@ -16,14 +17,16 @@ const env = {
 const config = loadConfig(env);
 
 const users: Record<string, AuthUser> = {
-  "user-token": { id: "u1", email: "u@x.com", emailVerified: true, role: "user" },
-  "admin-token": { id: "a1", email: "a@x.com", emailVerified: true, role: "admin" },
+  "user-token": { id: "u1", email: "u@x.com", emailVerified: true, username: null, role: "user" },
+  "admin-token": { id: "a1", email: "a@x.com", emailVerified: true, username: null, role: "admin" },
 };
 const fakeAuth: AuthService = {
   authenticate: async (t) => users[t] ?? null,
   signIn: async () => null,
   refresh: async () => null,
   signOut: async () => {},
+    oauthUrl: () => "https://example.supabase.co/auth/v1/authorize",
+    exchangeCode: async () => null,
 };
 
 const downloads: DownloadStore = { record: async () => {} };
@@ -38,7 +41,7 @@ const analytics: AnalyticsStore = {
     return { ...emptyAnalytics, days };
   },
 };
-const services = { auth: fakeAuth, downloads, analytics };
+const services = { auth: fakeAuth, downloads, analytics, community: fakeCommunity() };
 
 const get = async (url: string, headers: Record<string, string> = {}) => {
   const app = await buildApp(config, services);
@@ -113,7 +116,7 @@ describe("me", () => {
   });
   it("returns the user and role, nothing else", async () => {
     const res = await get("/api/me", { authorization: "Bearer user-token" });
-    expect(res.json()).toEqual({ id: "u1", email: "u@x.com", emailVerified: true, role: "user" });
+    expect(res.json()).toEqual({ id: "u1", email: "u@x.com", emailVerified: true, username: null, role: "user" });
   });
 });
 
