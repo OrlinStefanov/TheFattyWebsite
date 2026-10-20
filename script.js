@@ -14,13 +14,20 @@ const APK_SIZE_MB = 0;
   var size = document.getElementById('dl-size');
   btn.setAttribute('href', APK_PATH);
 
-  // Count the click. A beacon is fire-and-forget, so the download never waits on (or breaks with) the API.
+  // Wake the free-tier API in the background so it is ready by the time someone clicks Download.
+  if (API_URL) {
+    try { fetch(API_URL + '/health', { mode: 'no-cors', cache: 'no-store' }).catch(function () {}); } catch (e) {}
+  }
+
+  // Count the click. This request is fire-and-forget, so the download never waits on (or breaks with) the API.
   btn.addEventListener('click', function () {
-    if (!API_URL || btn.classList.contains('unavailable') || !navigator.sendBeacon) return;
+    if (!API_URL || btn.classList.contains('unavailable')) return;
     var ref = '';
     try { ref = new URL(document.referrer).hostname; } catch (e) {}
     try {
-      navigator.sendBeacon(API_URL + '/api/download' + (ref && ref.length <= 100 ? '?ref=' + encodeURIComponent(ref) : ''));
+      // keepalive lets the request finish even if the browser starts the download or navigates away.
+      fetch(API_URL + '/api/download' + (ref && ref.length <= 100 ? '?ref=' + encodeURIComponent(ref) : ''),
+        { method: 'POST', mode: 'no-cors', credentials: 'omit', keepalive: true }).catch(function () {});
     } catch (e) {}
   });
 

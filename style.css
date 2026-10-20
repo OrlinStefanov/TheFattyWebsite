@@ -96,3 +96,19 @@ h1,h2,h3,.brand{font-family:var(--pixel);font-weight:400;line-height:1.3}
 .tbl thead th{background:var(--card);color:var(--amber);font-family:var(--pixel);font-weight:400;font-size:11px}
 .tbl tbody th{font-weight:600;color:var(--text)}
 .tbl td{color:var(--muted)}
+
+/* Admin gateway page */
+.gw-title{font-size:clamp(16px,4vw,22px)}
+/* wake-up animation: a belt swinging on a loop while a slow request finishes */
+.wake{position:fixed;inset:0;z-index:50;display:grid;place-items:center;background:rgba(11,7,7,.88);padding:16px}
+.wake-box{max-width:360px;text-align:center}
+.belt{position:relative;height:60px;margin:0 auto 20px}
+.belt-strap{position:absolute;left:50%;top:0;width:110px;height:14px;background:var(--red);border-radius:7px;
+  border-bottom:3px solid #7d2018;transform-origin:0 50%;animation:swing 1s ease-in-out infinite alternate}
+.belt-buckle{position:absolute;left:50%;top:-3px;width:14px;height:20px;margin-left:-3px;background:var(--amber);border-radius:2px}
+@keyframes swing{from{transform:rotate(-38deg)}to{transform:rotate(38deg)}}
+.wake-title{font-family:var(--pixel);font-size:13px;line-height:1.6;margin:0 0 12px}
+.wake-sub{color:var(--muted);font-size:14px;margin:0 0 12px}
+.wake-time{color:var(--amber);font-family:var(--pixel);font-size:12px;margin:0}
+@media(prefers-reduced-motion:reduce){.belt-strap{animation:none;transform:rotate(-10deg)}}
+
