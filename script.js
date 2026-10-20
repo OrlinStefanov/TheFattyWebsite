@@ -1,6 +1,6 @@
 // Edit these when you ship a new APK.
 const APK_PATH = 'downloads/TheBelt.apk';
-const APK_VERSION = '1.0';
+const APK_VERSION = '1.001';
 // Set by update-apk.sh; shown for external (R2) links where the size can't be fetched.
 const APK_SIZE_MB = 0;
 
