@@ -1,0 +1,41 @@
+# The Fatty website
+
+Download site for the Android game **The Fatty** (formerly "The Belt"; the Unity project/repo is still called The Belt). Being extended with a backend, analytics, roles and a community page.
+
+## How to work
+Act like a senior full-stack developer: own the whole feature from the static frontend through the Fastify API to the Supabase schema, think about security and failure modes, and keep changes small and verified.
+
+## The game (source of truth for site copy)
+2D top-down zombie action game for Android, built in Unity 6. You fight with a physics belt, rescue villagers from cages, and they join your village where jobs pay for upgrades.
+- **Loop:** pick a mission -> play the stage (fight, chests, free cages) -> chest screen pays coins/gems on first completion -> village (jobs, upgrades, forge) -> each mission advances the village one day.
+- **Combat:** joystick + attack button, belt swing with spam-combo heat (up to 2.5x speed), stamina, auto flashlight, day/night, roofs fade indoors.
+- **Zombies:** Normal, Crawler, Runner, Brute, Spitter; boss Log Brute (mission 5).
+- **Power-ups:** Beer, Burger, Energy drink, Fart (unlocked after mission 5), Beans.
+- **Missions:** 10 across Forest (1-5) and Swamp (6-10). Mission 1: 15 zombies, 50 coins + 2 gems. Mission 10: 45 zombies x1.5 health/damage, 800 coins + 6 gems.
+- **Village:** 8 jobs, 7 upgradeable work buildings (max level 3, output up to x2.25), forge (player upgrades + crafting), beer party every 2 days, nightly horde (horn 20:00, attack 21:00; barricades, watchtowers with guards).
+- **Planned:** proper horde/arrow/wood sounds, a third region (maybe a swamp boss), balancing.
+Keep website copy consistent with this; do not invent features.
+
+## Layout
+- Repo root: static frontend served by GitHub Pages (`index.html`, `script.js`, `style.css`). No build step. Keep it that way.
+- `api/`: Node.js + TypeScript + Fastify backend (Render free tier). `api/scripts/publish-release.ts` uploads APKs to R2.
+- `supabase/`: SQL migrations (Postgres, Auth, RLS) and setup README.
+- `update-apk.sh`: release script (R2 upload + Supabase release row + `script.js` link, then commit/push).
+
+## Decisions already made
+- DB + Auth: Supabase. APK storage: Cloudflare R2 (Supabase free caps files at 50 MB, the APK is ~54 MB).
+- Backend: Fastify + TypeScript + zod. Frontend sends the Supabase access token as `Authorization: Bearer`; the API verifies it and reads the role from `profiles`.
+- Roles: `user` (default) and `admin`. Role is only changed via SQL, never from the client. Admin pages live on the same site under `admin/`; the real check is on `/api/admin/*` (403 otherwise).
+- Download button links directly to the R2 URL and fires a tracking beacon to `/api/download`, so the download never depends on a sleeping Render instance.
+- Email: Supabase built-in mailer is far too limited. Use custom SMTP (Resend) plus Google/Discord OAuth. Reviews require a verified email.
+- No custom domain: site is on `github.io`, so CORS must allow exactly that origin.
+
+## Rules
+- Secrets (service-role key, R2 keys, `.env*`) never go in the repo or the frontend. They live in `api/.env` only, never in `.env.example`.
+- Store hashed IPs with a rotating salt, never raw IPs.
+- Do not commit or push unless asked. Do not rewrite git history (APKs are in it) without explicit approval.
+- Prefer the smallest change; reuse existing patterns. Validate all external input with zod.
+
+## Commands
+- `cd api && npm run dev` (Scalar docs at http://localhost:3000/docs), `npm test`, `npm run typecheck`
+- `cd api && npm run release -- <apk> <version> --dry-run` checks R2 + Supabase without uploading
