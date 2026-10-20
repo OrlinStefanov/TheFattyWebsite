@@ -3,27 +3,93 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>The Fatty – Download for Android</title>
-<meta name="description" content="The Fatty is a 2D top-down zombie action game for Android. Swing your belt, rescue villagers from cages, and build up your village between missions. Free APK download.">
+<title>The Fatty – Free Zombie Action Game for Android (APK)</title>
+<meta name="description" content="Free top-down zombie action game for Android. Swing a physics belt, rescue villagers, grow your village and survive the nightly horde. Download the APK.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://orlinstefanov.github.io/TheFattyWebsite/">
 <meta name="theme-color" content="#0b0707">
-<meta property="og:title" content="The Fatty – Download for Android">
-<meta property="og:description" content="Fight zombies with a belt, rescue the villagers and grow your village. Free APK download.">
+<meta name="color-scheme" content="dark">
+
 <meta property="og:type" content="website">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230b0707'/%3E%3Crect x='3' y='12' width='26' height='8' fill='%23c0392b'/%3E%3Crect x='13' y='10' width='6' height='12' fill='%23f2b134'/%3E%3C/svg%3E">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Press+Start+2P&display=swap" rel="stylesheet">
+<meta property="og:site_name" content="The Fatty">
+<meta property="og:locale" content="en_US">
+<meta property="og:url" content="https://orlinstefanov.github.io/TheFattyWebsite/">
+<meta property="og:title" content="The Fatty – Free Zombie Action Game for Android">
+<meta property="og:description" content="Swing your belt, rescue the villagers and grow your village. 10 missions, 5 zombie types and a boss. Free APK download.">
+<meta property="og:image" content="https://orlinstefanov.github.io/TheFattyWebsite/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="The Fatty: top-down zombie action game for Android. Free APK.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The Fatty – Free Zombie Action Game for Android">
+<meta name="twitter:description" content="Swing your belt, rescue the villagers and grow your village. Free APK download.">
+<meta name="twitter:image" content="https://orlinstefanov.github.io/TheFattyWebsite/assets/og-image.png">
+
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="assets/icon-192.png" type="image/png" sizes="192x192">
+<link rel="apple-touch-icon" href="assets/icon-180.png">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="assets/fonts/press-start-2p-latin.woff2">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="assets/fonts/inter-latin.woff2">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://orlinstefanov.github.io/TheFattyWebsite/#website",
+      "url": "https://orlinstefanov.github.io/TheFattyWebsite/",
+      "name": "The Fatty",
+      "inLanguage": "en"
+    },
+    {
+      "@type": [
+        "VideoGame",
+        "MobileApplication"
+      ],
+      "@id": "https://orlinstefanov.github.io/TheFattyWebsite/#game",
+      "name": "The Fatty",
+      "url": "https://orlinstefanov.github.io/TheFattyWebsite/",
+      "image": "https://orlinstefanov.github.io/TheFattyWebsite/assets/og-image.png",
+      "description": "A free 2D top-down zombie action game for Android. Fight zombies with a physics belt, rescue villagers from cages and grow your village between 10 missions.",
+      "applicationCategory": "GameApplication",
+      "genre": [
+        "Action",
+        "Survival",
+        "Zombie"
+      ],
+      "gamePlatform": "Android",
+      "operatingSystem": "Android 8.0+",
+      "inLanguage": "en",
+      "isAccessibleForFree": true,
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD",
+        "availability": "https://schema.org/InStock"
+      },
+      "isPartOf": {
+        "@id": "https://orlinstefanov.github.io/TheFattyWebsite/#website"
+      }
+    }
+  ]
+}
+</script>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
+<a class="skip" href="#top">Skip to content</a>
 
 <header class="nav">
   <a class="brand" href="#top">THE FATTY</a>
-  <nav>
+  <nav aria-label="Main">
     <a href="#game">Game</a>
     <a href="#zombies">Zombies</a>
     <a href="#village">Village</a>
     <a href="#install">Install</a>
+    <a href="#faq">FAQ</a>
     <a class="nav-cta" href="#download">Download</a>
   </nav>
 </header>
@@ -32,11 +98,11 @@
   <section class="hero">
     <div class="glow" aria-hidden="true"></div>
     <p class="eyebrow">Android &middot; 2D top-down zombie action</p>
-    <h1>THE FATTY</h1>
+    <h1>THE FATTY<span class="vh"> – free top-down zombie game for Android</span></h1>
     <p class="lead">Fight zombies with a belt and break open the cages to rescue the trapped villagers. They move into your village, go to work, and their work pays for the upgrades that make you stronger for the next mission.</p>
 
     <div id="download" class="dl">
-      <a id="dl-btn" class="btn" href="downloads/TheBelt.apk" download>
+      <a id="dl-btn" class="btn" href="downloads/TheBelt.apk" rel="nofollow" download>
         <span class="btn-main">Download APK</span>
         <span class="btn-sub" id="dl-meta">Version <span data-version>1.0</span></span>
       </a>
@@ -65,7 +131,7 @@
       <li><strong>Go to the village.</strong> The rescued villagers join it. Give them jobs, spend what they make on upgrades, then head back out. Each mission you complete moves the village forward one day.</li>
     </ol>
 
-    <h2 class="gap">Combat</h2>
+    <h2 class="gap">Belt combat and spam combos</h2>
     <div class="grid">
       <article class="card">
         <h3>A belt you actually swing</h3>
@@ -92,16 +158,16 @@
     <h2 class="gap">Power-ups</h2>
     <p class="sub">Found in chests during a mission.</p>
     <div class="grid">
-      <article class="card"><h3>&#127866; Beer</h3><p>A damage rage, followed by a hangover.</p></article>
-      <article class="card"><h3>&#127828; Burger</h3><p>Restores health.</p></article>
-      <article class="card"><h3>&#9889; Energy drink</h3><p>Infinite stamina for a while.</p></article>
-      <article class="card"><h3>&#128168; Fart</h3><p>Has its own button, unlocked after mission 5. Leaves a poison gas cloud.</p></article>
-      <article class="card"><h3>&#129752; Beans</h3><p>Heal you and leave a gas trail behind you.</p></article>
+      <article class="card"><h3><span aria-hidden="true">&#127866;</span> Beer</h3><p>A damage rage, followed by a hangover.</p></article>
+      <article class="card"><h3><span aria-hidden="true">&#127828;</span> Burger</h3><p>Restores health.</p></article>
+      <article class="card"><h3><span aria-hidden="true">&#9889;</span> Energy drink</h3><p>Infinite stamina for a while.</p></article>
+      <article class="card"><h3><span aria-hidden="true">&#128168;</span> Fart</h3><p>Has its own button, unlocked after mission 5. Leaves a poison gas cloud.</p></article>
+      <article class="card"><h3><span aria-hidden="true">&#129752;</span> Beans</h3><p>Heal you and leave a gas trail behind you.</p></article>
     </div>
   </section>
 
   <section id="zombies" class="section alt">
-    <h2>The zombies</h2>
+    <h2>Zombie types and the Log Brute boss</h2>
     <p class="sub">Each type forces you to fight differently.</p>
     <div class="list">
       <div class="row"><strong>Normal</strong><span>Walks up and hits you.</span></div>
@@ -142,7 +208,7 @@
   </section>
 
   <section id="village" class="section alt">
-    <h2>Your village</h2>
+    <h2>Your village: jobs, upgrades and the forge</h2>
     <p class="sub">A walled village with a gate, farm, river, lumber yard, mine, forge, restaurant and market stalls. Villagers work, eat and sleep on a 24-hour clock and dress for their job.</p>
 
     <h3 class="subhead">Jobs</h3>
@@ -206,7 +272,7 @@
   </section>
 
   <section id="install" class="section alt">
-    <h2>How to install</h2>
+    <h2>How to install the APK on Android</h2>
     <p class="sub">The APK isn't on Google Play, so Android will ask for permission once.</p>
     <ol class="steps">
       <li><strong>Download</strong> the APK with the button above, on your phone.</li>
@@ -214,6 +280,36 @@
       <li>Go back and tap <strong>Install</strong>. If Play Protect warns you, choose <strong>Install anyway</strong>.</li>
       <li>Open <strong>The Fatty</strong> and play.</li>
     </ol>
+  </section>
+
+  <section id="faq" class="section alt">
+    <h2>Frequently asked questions</h2>
+    <div class="faq">
+      <details>
+        <summary>Is The Fatty free?</summary>
+        <p>Yes. The Fatty is a free download.</p>
+      </details>
+      <details>
+        <summary>Is The Fatty on Google Play?</summary>
+        <p>Not right now. You download the APK from this page and install it yourself. The <a href="#install">install guide</a> takes about 30 seconds.</p>
+      </details>
+      <details>
+        <summary>Which Android versions does it run on?</summary>
+        <p>Android 8.0 or newer.</p>
+      </details>
+      <details>
+        <summary>What is The Fatty about?</summary>
+        <p>It is a 2D top-down zombie action game. You fight with a belt, break open cages to rescue villagers, and those villagers move into your village and work there. Their work pays for the upgrades that make you stronger for the next mission.</p>
+      </details>
+      <details>
+        <summary>How many missions and zombie types are there?</summary>
+        <p>There are 10 missions across the Forest and the Swamp, 5 zombie types and the Log Brute boss at the end of mission 5.</p>
+      </details>
+      <details>
+        <summary>Do I lose my coins and gems if I get knocked out in the village?</summary>
+        <p>No. If you go down during the nightly horde you wake at 07:00 with full health, and you never lose coins or gems.</p>
+      </details>
+    </div>
   </section>
 
   <section id="roadmap" class="section">
@@ -227,7 +323,7 @@
 </main>
 
 <footer class="footer">
-  <p><strong>THE FATTY</strong> &middot; <a href="https://github.com/OrlinStefanov/TheBeltOriginal">GitHub</a> &middot; <a href="admin.html">Admin</a></p>
+  <p><strong>THE FATTY</strong> &middot; <a href="https://github.com/OrlinStefanov/TheBeltOriginal">GitHub</a> &middot; <a href="admin.html" rel="nofollow">Admin</a></p>
   <p class="credits">Built with Unity. Includes licensed art and effects from the Unity Asset Store, including Cainos, Tiny Swords and Matthew Guz. Only install APKs from this page.</p>
 </footer>
 

@@ -1,0 +1,6 @@
+# Crawlers only read robots.txt at the root of a host. On a GitHub Pages project site this file
+# is not at the root, so it is advisory. Submit the sitemap in Search Console instead.
+User-agent: *
+Allow: /
+
+Sitemap: https://orlinstefanov.github.io/TheFattyWebsite/sitemap.xml
