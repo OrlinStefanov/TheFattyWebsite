@@ -9,6 +9,8 @@ const schema = z.object({
   ALLOWED_ORIGIN: httpUrl,
   SUPABASE_URL: httpUrl,
   SUPABASE_SERVICE_ROLE_KEY: z.string().min(1),
+  // Secret key for hashing IPs. Generate: node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
+  IP_HASH_SECRET: z.string().min(16),
 });
 
 export type Config = z.infer<typeof schema>;

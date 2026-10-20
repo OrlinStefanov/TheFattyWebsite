@@ -2,12 +2,14 @@ import { describe, expect, it } from "vitest";
 import { buildApp } from "../src/app.js";
 import { loadConfig } from "../src/config.js";
 import type { AuthService, AuthUser } from "../src/plugins/auth.js";
+import type { DownloadStore } from "../src/services/downloads.js";
 
 const config = loadConfig({
   NODE_ENV: "test",
   ALLOWED_ORIGIN: "https://example.github.io",
   SUPABASE_URL: "https://example.supabase.co",
   SUPABASE_SERVICE_ROLE_KEY: "test-key",
+  IP_HASH_SECRET: "test-secret-0123456789",
 });
 
 const users: Record<string, AuthUser> = {
@@ -16,8 +18,11 @@ const users: Record<string, AuthUser> = {
 };
 const fakeAuth: AuthService = { authenticate: async (t) => users[t] ?? null };
 
+const downloads: DownloadStore = { record: async () => {} };
+const services = { auth: fakeAuth, downloads };
+
 const get = async (url: string, headers: Record<string, string> = {}) => {
-  const app = await buildApp(config, fakeAuth);
+  const app = await buildApp(config, services);
   return app.inject({ method: "GET", url, headers });
 };
 
@@ -66,7 +71,7 @@ describe("docs", () => {
   });
   it("is not served in production", async () => {
     const prod = { ...config, NODE_ENV: "production" as const };
-    const app = await buildApp(prod, fakeAuth);
+    const app = await buildApp(prod, services);
     expect((await app.inject({ method: "GET", url: "/docs" })).statusCode).toBe(404);
   });
 });

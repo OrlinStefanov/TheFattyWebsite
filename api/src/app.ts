@@ -12,9 +12,16 @@ import {
 import type { Config } from "./config.js";
 import { authPlugin, type AuthService } from "./plugins/auth.js";
 import { adminRoutes } from "./routes/admin.js";
+import { downloadRoutes } from "./routes/download.js";
 import { healthRoutes } from "./routes/health.js";
+import type { DownloadStore } from "./services/downloads.js";
 
-export async function buildApp(config: Config, auth: AuthService) {
+export interface Services {
+  auth: AuthService;
+  downloads: DownloadStore;
+}
+
+export async function buildApp(config: Config, { auth, downloads }: Services) {
   const app = Fastify({
     logger: config.NODE_ENV === "test" ? false : { redact: ["req.headers.authorization"] },
     trustProxy: true, // Render sits behind a proxy; needed for correct client IPs
@@ -48,6 +55,7 @@ export async function buildApp(config: Config, auth: AuthService) {
   await app.register(authPlugin, { auth });
 
   await app.register(healthRoutes);
+  await app.register(downloadRoutes, { prefix: "/api", config, downloads });
   await app.register(adminRoutes, { prefix: "/api/admin" });
 
   return app;

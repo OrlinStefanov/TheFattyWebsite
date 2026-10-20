@@ -1,10 +1,14 @@
 import "dotenv/config";
 import { buildApp } from "./app.js";
 import { loadConfig } from "./config.js";
+import { createSupabaseDownloads } from "./services/downloads.js";
 import { createSupabaseAuth } from "./services/supabase-auth.js";
 
 const config = loadConfig();
-const app = await buildApp(config, createSupabaseAuth(config));
+const app = await buildApp(config, {
+  auth: createSupabaseAuth(config),
+  downloads: createSupabaseDownloads(config),
+});
 
 try {
   await app.listen({ port: config.PORT, host: "0.0.0.0" });

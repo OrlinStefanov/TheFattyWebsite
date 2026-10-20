@@ -1,6 +1,8 @@
 // Edit these when you ship a new APK.
 const APK_PATH = 'downloads/TheBelt.apk';
 const APK_VERSION = '1.001';
+// Base URL of the API for download tracking, e.g. https://thebelt-api.onrender.com. Leave empty to disable.
+const API_URL = '';
 // Set by update-apk.sh; shown for external (R2) links where the size can't be fetched.
 const APK_SIZE_MB = 0;
 
@@ -11,6 +13,16 @@ const APK_SIZE_MB = 0;
   var meta = document.getElementById('dl-meta');
   var size = document.getElementById('dl-size');
   btn.setAttribute('href', APK_PATH);
+
+  // Count the click. A beacon is fire-and-forget, so the download never waits on (or breaks with) the API.
+  btn.addEventListener('click', function () {
+    if (!API_URL || btn.classList.contains('unavailable') || !navigator.sendBeacon) return;
+    var ref = '';
+    try { ref = new URL(document.referrer).hostname; } catch (e) {}
+    try {
+      navigator.sendBeacon(API_URL + '/api/download' + (ref && ref.length <= 100 ? '?ref=' + encodeURIComponent(ref) : ''));
+    } catch (e) {}
+  });
 
   // Check the APK exists and show its size. If it's missing, say so instead of giving a dead download.
   // External URLs (e.g. a GitHub Release) can't be checked from the browser because of CORS.
