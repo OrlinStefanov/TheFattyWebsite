@@ -1,13 +1,17 @@
+# Render Blueprint: New -> Blueprint -> pick this repo.
 services:
   - type: web
-    name: thebelt-api
+    name: thefatty-api
     runtime: node
     plan: free
     rootDir: api
-    buildCommand: npm ci && npm run build
+    # --include=dev: NODE_ENV=production would otherwise skip TypeScript, which the build needs.
+    buildCommand: npm ci --include=dev && npm run build
     startCommand: npm start
     healthCheckPath: /health
     envVars:
+      - key: NODE_VERSION
+        value: 22
       - key: NODE_ENV
         value: production
       - key: ALLOWED_ORIGIN
