@@ -11,6 +11,8 @@ const env = {
   SUPABASE_URL: "https://example.supabase.co",
   SUPABASE_SERVICE_ROLE_KEY: "test-key",
   IP_HASH_SECRET: "test-secret-0123456789",
+  SUPABASE_ANON_KEY: "anon-key",
+  PUBLIC_URL: "https://api.example.com",
 };
 
 async function setup(overrides: Record<string, string> = {}, fail = false) {
@@ -22,8 +24,9 @@ async function setup(overrides: Record<string, string> = {}, fail = false) {
     },
   };
   const app = await buildApp(loadConfig({ ...env, ...overrides }), {
-    auth: { authenticate: async () => null },
+    auth: { authenticate: async () => null, signIn: async () => null, refresh: async () => null, signOut: async () => {} },
     downloads,
+    analytics: { downloads: async () => { throw new Error("unused"); } },
   });
   return { app, events };
 }
@@ -76,6 +79,29 @@ describe("POST /api/download", () => {
     let last = 0;
     for (let i = 0; i < 11; i++) {
       last = (await app.inject({ method: "POST", url: "/api/download" })).statusCode;
+    }
+    expect(last).toBe(429);
+  });
+});
+
+describe("client IP", () => {
+  it("ignores a forged X-Forwarded-For and uses the address the proxy appended", async () => {
+    const { app, events } = await setup();
+    // Same real client (8.8.8.8, appended by the proxy), different forged first entries.
+    await app.inject({ method: "POST", url: "/api/download", remoteAddress: "10.0.0.1",
+      headers: { "x-forwarded-for": "6.6.6.6, 8.8.8.8" } });
+    await app.inject({ method: "POST", url: "/api/download", remoteAddress: "10.0.0.2",
+      headers: { "x-forwarded-for": "1.2.3.4, 8.8.8.8" } });
+    expect(events[0]!.country).toBe("US");
+    expect(events[0]!.ipHash).toBe(events[1]!.ipHash);
+  });
+
+  it("rate limits by the real address, so rotating a forged header does not help", async () => {
+    const { app } = await setup();
+    let last = 0;
+    for (let i = 0; i < 11; i++) {
+      last = (await app.inject({ method: "POST", url: "/api/download", remoteAddress: "10.0.0.1",
+        headers: { "x-forwarded-for": `9.9.9.${i}, 8.8.8.8` } })).statusCode;
     }
     expect(last).toBe(429);
   });

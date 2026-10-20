@@ -2,24 +2,43 @@ import { describe, expect, it } from "vitest";
 import { buildApp } from "../src/app.js";
 import { loadConfig } from "../src/config.js";
 import type { AuthService, AuthUser } from "../src/plugins/auth.js";
+import type { AnalyticsStore } from "../src/services/analytics.js";
 import type { DownloadStore } from "../src/services/downloads.js";
 
-const config = loadConfig({
+const env = {
   NODE_ENV: "test",
   ALLOWED_ORIGIN: "https://example.github.io",
   SUPABASE_URL: "https://example.supabase.co",
   SUPABASE_SERVICE_ROLE_KEY: "test-key",
   IP_HASH_SECRET: "test-secret-0123456789",
-});
+  SUPABASE_ANON_KEY: "anon-key",
+};
+const config = loadConfig(env);
 
 const users: Record<string, AuthUser> = {
   "user-token": { id: "u1", email: "u@x.com", emailVerified: true, role: "user" },
   "admin-token": { id: "a1", email: "a@x.com", emailVerified: true, role: "admin" },
 };
-const fakeAuth: AuthService = { authenticate: async (t) => users[t] ?? null };
+const fakeAuth: AuthService = {
+  authenticate: async (t) => users[t] ?? null,
+  signIn: async () => null,
+  refresh: async () => null,
+  signOut: async () => {},
+};
 
 const downloads: DownloadStore = { record: async () => {} };
-const services = { auth: fakeAuth, downloads };
+const emptyAnalytics = {
+  days: 30, total: 0, visitor_days: 0, by_day: [], by_version: [], by_country: [],
+  by_device: [], by_browser: [], by_referrer: [], recent: [],
+};
+const requestedDays: number[] = [];
+const analytics: AnalyticsStore = {
+  downloads: async (days) => {
+    requestedDays.push(days);
+    return { ...emptyAnalytics, days };
+  },
+};
+const services = { auth: fakeAuth, downloads, analytics };
 
 const get = async (url: string, headers: Record<string, string> = {}) => {
   const app = await buildApp(config, services);
@@ -29,6 +48,12 @@ const get = async (url: string, headers: Record<string, string> = {}) => {
 describe("config", () => {
   it("rejects missing env", () => {
     expect(() => loadConfig({})).toThrow(/Invalid environment/);
+  });
+  it("refuses to run in production without an https PUBLIC_URL", () => {
+    const prod = { ...env, NODE_ENV: "production" };
+    expect(() => loadConfig(prod)).toThrow(/PUBLIC_URL/);
+    expect(() => loadConfig({ ...prod, PUBLIC_URL: "http://api.example.com" })).toThrow(/PUBLIC_URL/);
+    expect(loadConfig({ ...prod, PUBLIC_URL: "https://api.example.com/" }).PUBLIC_URL).toBe("https://api.example.com");
   });
 });
 
@@ -60,6 +85,35 @@ describe("admin routes", () => {
     const res = await get("/api/admin/ping", { authorization: "Bearer admin-token" });
     expect(res.statusCode).toBe(200);
     expect(res.json()).toEqual({ ok: true, userId: "a1" });
+  });
+});
+
+describe("analytics", () => {
+  const url = "/api/admin/analytics/downloads";
+  const as = (token: string) => ({ authorization: `Bearer ${token}` });
+  it("is admin only", async () => {
+    expect((await get(url)).statusCode).toBe(401);
+    expect((await get(url, as("user-token"))).statusCode).toBe(403);
+  });
+  it("defaults to 30 days and passes the requested range through", async () => {
+    expect((await get(url, as("admin-token"))).json().days).toBe(30);
+    expect((await get(`${url}?days=7`, as("admin-token"))).json().days).toBe(7);
+    expect(requestedDays.slice(-2)).toEqual([30, 7]);
+  });
+  it("rejects out-of-range or non-numeric days", async () => {
+    for (const bad of ["0", "366", "abc", "1.5"]) {
+      expect((await get(`${url}?days=${bad}`, as("admin-token"))).statusCode).toBe(400);
+    }
+  });
+});
+
+describe("me", () => {
+  it("requires a token", async () => {
+    expect((await get("/api/me")).statusCode).toBe(401);
+  });
+  it("returns the user and role, nothing else", async () => {
+    const res = await get("/api/me", { authorization: "Bearer user-token" });
+    expect(res.json()).toEqual({ id: "u1", email: "u@x.com", emailVerified: true, role: "user" });
   });
 });
 

@@ -1,6 +1,7 @@
 import "dotenv/config";
 import { buildApp } from "./app.js";
 import { loadConfig } from "./config.js";
+import { createSupabaseAnalytics } from "./services/analytics.js";
 import { createSupabaseDownloads } from "./services/downloads.js";
 import { createSupabaseAuth } from "./services/supabase-auth.js";
 
@@ -8,6 +9,7 @@ const config = loadConfig();
 const app = await buildApp(config, {
   auth: createSupabaseAuth(config),
   downloads: createSupabaseDownloads(config),
+  analytics: createSupabaseAnalytics(config),
 });
 
 try {

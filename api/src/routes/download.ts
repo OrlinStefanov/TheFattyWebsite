@@ -1,4 +1,5 @@
 import { lookup } from "geoip-country";
+import { isIP } from "node:net";
 import type { FastifyPluginAsyncZod } from "fastify-type-provider-zod";
 import { z } from "zod";
 import type { Config } from "../config.js";
@@ -41,7 +42,7 @@ export const downloadRoutes: FastifyPluginAsyncZod<Options> = async (app, { conf
       const { device, family } = parseUserAgent(req.headers["user-agent"]);
       try {
         await downloads.record({
-          country: lookup(req.ip)?.country ?? null,
+          country: isIP(req.ip) ? (lookup(req.ip)?.country ?? null) : null,
           device,
           uaFamily: family,
           referrer: req.query.ref ?? null,

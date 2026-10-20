@@ -20,5 +20,9 @@ services:
         sync: false
       - key: SUPABASE_SERVICE_ROLE_KEY
         sync: false
+      - key: SUPABASE_ANON_KEY
+        sync: false
+      - key: PUBLIC_URL
+        value: https://thefatty-api.onrender.com
       - key: IP_HASH_SECRET
         generateValue: true
