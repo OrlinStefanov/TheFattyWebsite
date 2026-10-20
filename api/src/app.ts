@@ -62,8 +62,8 @@ export async function buildApp(config: Config, { auth, downloads, analytics }: S
       directives: {
         defaultSrc: ["'self'"],
         scriptSrc: ["'self'"],
-        styleSrc: ["'self'", "https://fonts.googleapis.com"],
-        fontSrc: ["https://fonts.gstatic.com"],
+        styleSrc: ["'self'"],
+        fontSrc: ["'self'"],
         imgSrc: ["'self'", "data:"],
         connectSrc: ["'self'"],
         frameAncestors: ["'none'"],
@@ -89,10 +89,14 @@ export async function buildApp(config: Config, { auth, downloads, analytics }: S
   await app.register(rateLimit, { max: 100, timeWindow: "1 minute" });
   await app.register(authPlugin, { auth, config });
 
-  // Never cache API answers (they can hold personal data); always revalidate admin pages.
+  // Never cache API answers (they can hold personal data); always revalidate admin pages and keep
+  // them out of search results.
   app.addHook("onSend", async (req, reply) => {
     if (req.url.startsWith("/api/")) reply.header("Cache-Control", "no-store");
-    else if (req.url.startsWith("/admin")) reply.header("Cache-Control", "no-cache");
+    else if (req.url.startsWith("/admin")) {
+      reply.header("Cache-Control", "no-cache");
+      reply.header("X-Robots-Tag", "noindex, nofollow"); // keep the admin area out of search results
+    }
   });
 
   if (docsEnabled) {

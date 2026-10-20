@@ -1,3 +1,6 @@
+/* Self-hosted fonts (SIL Open Font License): no third-party requests. Latin subset. */
+@font-face{font-family:'Inter';font-style:normal;font-weight:400 600;font-display:swap;src:url(/admin/fonts/inter-latin.woff2) format('woff2')}
+@font-face{font-family:'Press Start 2P';font-style:normal;font-weight:400;font-display:swap;src:url(/admin/fonts/press-start-2p-latin.woff2) format('woff2')}
 /* Admin pages. Self-contained: these pages are served by the API, not GitHub Pages. */
 :root{
   --bg:#0b0707;

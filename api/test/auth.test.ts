@@ -249,10 +249,22 @@ describe("headers and static files", () => {
     expect(csp).toContain("script-src 'self'");
     expect(csp).toContain("frame-ancestors 'none'");
     expect(csp).toContain("object-src 'none'");
+    expect(csp).not.toMatch(/google|gstatic/); // fonts are self-hosted
     expect(csp).not.toMatch(/script-src[^;]*unsafe/);
     expect(res.headers["x-content-type-options"]).toBe("nosniff");
     expect(res.headers["cache-control"]).toBe("no-cache");
+    expect(res.headers["x-robots-tag"]).toBe("noindex, nofollow");
     expect((await app.inject({ method: "GET", url: "/admin/login.html" })).statusCode).toBe(200);
+  });
+
+  it("serves the self-hosted fonts the admin pages need", async () => {
+    const { app } = await setup();
+    for (const f of ["inter-latin.woff2", "press-start-2p-latin.woff2"]) {
+      const res = await app.inject({ method: "GET", url: `/admin/fonts/${f}` });
+      expect(res.statusCode).toBe(200);
+      expect(res.headers["content-type"]).toMatch(/font\/woff2/);
+      expect(res.rawPayload.subarray(0, 4).toString()).toBe("wOF2");
+    }
   });
 
   it("has no inline scripts or styles in the admin pages (the CSP would block them)", async () => {
