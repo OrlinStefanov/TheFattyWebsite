@@ -18,15 +18,18 @@ Keep website copy consistent with this; do not invent features.
 
 ## Layout
 - Repo root: static frontend served by GitHub Pages (`index.html`, `script.js`, `style.css`). No build step. Keep it that way.
-- `api/`: Node.js + TypeScript + Fastify backend (Render free tier). `api/scripts/publish-release.ts` uploads APKs to R2.
+- `api/`: Node.js + TypeScript + Fastify backend (Render free tier). Also serves the admin pages (`api/public/admin/`). `api/scripts/publish-release.ts` uploads APKs to R2.
 - `supabase/`: SQL migrations (Postgres, Auth, RLS) and setup README.
 - `update-apk.sh`: release script (R2 upload + Supabase release row + `script.js` link, then commit/push).
 
 ## Decisions already made
 - DB + Auth: Supabase. APK storage: Cloudflare R2 (Supabase free caps files at 50 MB, the APK is ~54 MB).
-- Backend: Fastify + TypeScript + zod. Frontend sends the Supabase access token as `Authorization: Bearer`; the API verifies it and reads the role from `profiles`.
-- Roles: `user` (default) and `admin`. Role is only changed via SQL, never from the client. Admin pages live on the same site under `admin/`; the real check is on `/api/admin/*` (403 otherwise).
-- Download button links directly to the R2 URL and fires a tracking beacon to `/api/download`, so the download never depends on a sleeping Render instance.
+- Backend: Fastify + TypeScript + zod. The API signs users in against Supabase Auth, verifies the access token on each request and reads the role from `profiles`. `Authorization: Bearer` is still accepted for tools (Scalar, scripts).
+- Roles: `user` (default) and `admin`. Role is only changed via SQL, never from the client. The real check is on `/api/admin/*` (403 otherwise).
+- Sessions: HttpOnly, SameSite=Strict cookies (`__Host-` + Secure in production) set by the API; no tokens in localStorage or JS. GitHub Pages (github.io) and Render (onrender.com) are different sites, so the admin pages are **served by the API** from `api/public/admin/` (first-party cookie, strict CSP). `admin.html` on Pages is only a gateway that wakes the API (with an animation) and redirects.
+- CSRF: state-changing auth routes require `Origin === PUBLIC_URL`; CORS never allows credentials. Login has a per-IP and a per-account limit.
+- Client IP: `trustProxy` trusts only `TRUST_PROXY_HOPS` (default 1) hops. Never set it to `true`: Render does not strip a client-sent X-Forwarded-For.
+- Download button links directly to the R2 URL and fires a keepalive `fetch` to `/api/download`, so the download never depends on a sleeping Render instance.
 - Email: Supabase built-in mailer is far too limited. Use custom SMTP (Resend) plus Google/Discord OAuth. Reviews require a verified email.
 - No custom domain: site is on `github.io`, so CORS must allow exactly that origin.
 
@@ -37,5 +40,8 @@ Keep website copy consistent with this; do not invent features.
 - Prefer the smallest change; reuse existing patterns. Validate all external input with zod.
 
 ## Commands
-- `cd api && npm run dev` (Scalar docs at http://localhost:3000/docs), `npm test`, `npm run typecheck`
+- `cd api && npm run dev` (Scalar docs at http://localhost:3000/docs, admin at http://localhost:3000/admin/), `npm test`, `npm run typecheck`
 - `cd api && npm run release -- <apk> <version> --dry-run` checks R2 + Supabase without uploading
+
+## Security review
+Run the `security-reviewer` agent (`.claude/agents/security-reviewer.md`) after changes to auth, cookies, headers, routes, SQL or the admin UI.
