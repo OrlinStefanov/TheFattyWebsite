@@ -1,10 +1,10 @@
 // Edit these when you ship a new APK.
-const APK_PATH = 'downloads/TheBelt.apk';
-const APK_VERSION = '1.001';
+const APK_PATH = 'https://pub-b506b992cfc145749e85bcb90ee6b325.r2.dev/TheFatty-v1.002.apk';
+const APK_VERSION = '1.002';
 // Base URL of the API for download tracking, e.g. https://thefatty-api.onrender.com. Leave empty to disable.
 const API_URL = 'https://thefatty-api.onrender.com';
 // Set by update-apk.sh; shown for external (R2) links where the size can't be fetched.
-const APK_SIZE_MB = 0;
+const APK_SIZE_MB = 53;
 
 (function () {
   document.querySelectorAll('[data-version]').forEach(function (el) { el.textContent = APK_VERSION; });
