@@ -41,15 +41,22 @@ fi
 git pull --ff-only -q origin main || die "could not update main from GitHub"
 [ -d api/node_modules ] || die "run 'npm install' in api/ first"
 
-# Make sure it really is an APK and not a wrong file.
-PY=$(command -v python3 || command -v python || true)
-[ -n "$PY" ] || die "python is needed to validate the APK"
-"$PY" - "$APK_SRC" <<'EOF' || die "not a valid APK (bad zip or no AndroidManifest.xml)"
-import sys, zipfile
-z = zipfile.ZipFile(sys.argv[1])
-assert z.testzip() is None
-assert "AndroidManifest.xml" in z.namelist()
-EOF
+# Make sure it really is an APK and not a wrong file (a zip whose directory lists AndroidManifest.xml).
+command -v node >/dev/null || die "node is needed to validate the APK"
+node -e '
+const fs = require("fs");
+const fd = fs.openSync(process.argv[1], "r");
+const size = fs.fstatSync(fd).size;
+const read = (pos, len) => { const b = Buffer.alloc(len); fs.readSync(fd, b, 0, len, pos); return b; };
+if (size < 22 || read(0, 2).toString("latin1") !== "PK") process.exit(1);
+const tailLen = Math.min(size, 65557);
+const tail = read(size - tailLen, tailLen);
+const eocd = tail.lastIndexOf(Buffer.from([0x50, 0x4b, 0x05, 0x06]));
+if (eocd < 0) process.exit(1);
+const cdSize = tail.readUInt32LE(eocd + 12), cdOffset = tail.readUInt32LE(eocd + 16);
+if (cdOffset + cdSize > size) process.exit(1);
+process.exit(read(cdOffset, cdSize).includes("AndroidManifest.xml") ? 0 : 1);
+' "$APK_SRC" || die "not a valid APK (bad zip or no AndroidManifest.xml)"
 
 SIZE_BYTES=$(wc -c < "$APK_SRC" | tr -d ' ')
 SIZE_MB=$(( SIZE_BYTES / 1048576 ))
