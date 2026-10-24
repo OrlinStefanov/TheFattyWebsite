@@ -16,7 +16,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:url" content="https://orlinstefanov.github.io/TheFattyWebsite/">
 <meta property="og:title" content="The Fatty – Free Zombie Action Game for Android">
-<meta property="og:description" content="Swing your belt, rescue the villagers and grow your village. 10 missions, 5 zombie types and a boss. Free APK download.">
+<meta property="og:description" content="Swing your belt, rescue the villagers and grow your village. 10 missions, 5 zombie types and 2 bosses. Free APK download.">
 <meta property="og:image" content="https://orlinstefanov.github.io/TheFattyWebsite/assets/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -118,8 +118,8 @@
 
     <ul class="stats" aria-label="The game in numbers">
       <li><strong>10</strong> missions</li>
-      <li><strong>5</strong> zombie types + a boss</li>
-      <li><strong>8</strong> village jobs</li>
+      <li><strong>5</strong> zombie types + 2 bosses</li>
+      <li><strong>9</strong> village jobs</li>
       <li><strong>5</strong> power-ups</li>
     </ul>
   </section>
@@ -132,6 +132,7 @@
       <li><strong>Finish the mission.</strong> The chest screen pays out coins and gems the first time you complete it.</li>
       <li><strong>Go to the village.</strong> The rescued villagers join it. Give them jobs, spend what they make on upgrades, then head back out. Each mission you complete moves the village forward one day.</li>
     </ol>
+    <p class="note"><strong>First launch:</strong> a short tutorial. You start empty-handed and find the belt in a chest, and a counter shows how many zombies are left across its waves. Played before? The pause menu has <strong>Skip Tutorial</strong>.</p>
 
     <h2 class="gap">Belt combat and spam combos</h2>
     <div class="grid">
@@ -146,6 +147,10 @@
       <article class="card">
         <h3>Stamina</h3>
         <p>Running and attacking both draw from your stamina bar, so you can't just sprint and swing forever.</p>
+      </article>
+      <article class="card">
+        <h3>Getting hit</h3>
+        <p>You flash red for a moment when you take a hit, in the stages, the tutorial and the village.</p>
       </article>
       <article class="card">
         <h3>Day, night and flashlight</h3>
@@ -166,10 +171,12 @@
       <article class="card"><h3><span aria-hidden="true">&#128168;</span> Fart</h3><p>Has its own button, unlocked after mission 5. Leaves a poison gas cloud.</p></article>
       <article class="card"><h3><span aria-hidden="true">&#129752;</span> Beans</h3><p>Heal you and leave a gas trail behind you.</p></article>
     </div>
+    <h3 class="subhead">Loot chests</h3>
+    <p>Every mission also hides 3&ndash;6 chests with coins in them, and later missions pay more. About one in six is golden: fewer coins, but 1&ndash;2 gems.</p>
   </section>
 
   <section id="zombies" class="section alt">
-    <h2>Zombie types and the Log Brute boss</h2>
+    <h2>Zombie types and bosses</h2>
     <p class="sub">Each type forces you to fight differently.</p>
     <div class="list">
       <div class="row"><strong>Normal</strong><span>Walks up and hits you.</span></div>
@@ -182,6 +189,10 @@
       <h3>Boss: the Log Brute</h3>
       <p>Waiting at the end of mission 5. It marks a spot with a red light, then slams its log down on it. After a set of slams it runs out of breath, and that is your window to hit it. Below half health it enrages: rocks rain down and Runners join the fight.</p>
     </div>
+    <div class="card boss">
+      <h3>Boss: the Bog Brute</h3>
+      <p>Waiting at the end of mission 10 in the Swamp. It guards a caged dog, and the cage opens when you beat it.</p>
+    </div>
   </section>
 
   <section id="missions" class="section">
@@ -193,7 +204,7 @@
       </article>
       <article class="card">
         <h3>Swamp</h3>
-        <p>Missions 6&ndash;9 are rescues, and mission 10 is Drain the Swamp. Expect Spitters, sunken ruins, a bog graveyard and a drowned village.</p>
+        <p>Missions 6&ndash;9 are rescues, and mission 10 is Drain the Swamp. Expect Spitters, sunken ruins, a bog graveyard and a drowned village, and the Bog Brute at the end.</p>
       </article>
     </div>
     <div class="tablewrap">
@@ -201,8 +212,9 @@
         <caption>Difficulty and rewards rise with every mission</caption>
         <thead><tr><th></th><th>Mission 1</th><th>Mission 10</th></tr></thead>
         <tbody>
-          <tr><th scope="row">Zombies</th><td>15</td><td>45</td></tr>
-          <tr><th scope="row">Zombie health and damage</th><td>&times;1.0</td><td>&times;1.5</td></tr>
+          <tr><th scope="row">Zombies</th><td>15</td><td>25 (fewer, but much tougher)</td></tr>
+          <tr><th scope="row">Zombie health</th><td>&times;1.0</td><td>&times;2.0</td></tr>
+          <tr><th scope="row">Zombie damage</th><td>&times;1.0</td><td>&times;1.8</td></tr>
           <tr><th scope="row">Reward</th><td>50 coins, 2 gems</td><td>800 coins, 6 gems</td></tr>
         </tbody>
       </table>
@@ -223,6 +235,7 @@
       <div class="row"><strong>Blacksmith</strong><span>Crafts items at the forge.</span></div>
       <div class="row"><strong>Seller</strong><span>Coins (at most 6 sellers).</span></div>
       <div class="row"><strong>Guard</strong><span>Mans a watchtower at night.</span></div>
+      <div class="row"><strong>Trader</strong><span>Trades at the trading post: 2 swaps a day per trader level.</span></div>
     </div>
     <p class="note">Every villager eats food and drinks water each day.</p>
 
@@ -237,11 +250,28 @@
     <ul class="bullets">
       <li><strong>Upgrade yourself:</strong> Health, Belt damage, Stamina, Speed and Fart, paid for with coins, ore and wood.</li>
       <li><strong>Crafting:</strong> your blacksmiths make tool kits and building beams for village upgrades, plus the iron plate, spiked belt and running boots, which each boost your next mission only.</li>
+      <li><strong>Building materials:</strong> nails, planks, hinges and chain, for the dog shed. Later they will also turn up in a new mode.</li>
       <li>The forge's level sets how many items are made at once. More blacksmiths don't make things cheaper.</li>
     </ul>
 
     <h3 class="subhead">Beer party</h3>
-    <p>Every 2 days at 19:00 the clock stops until you walk to the restaurant terrace. Then you get 20 seconds to tap as fast as you can and chug beers. Every beer you finish gives a random reward.</p>
+    <p>Every 2 days at 19:00 the clock stops until you walk to the restaurant terrace. Then you get 20 seconds to tap as fast as you can and chug beers. Every beer you finish gives a random reward. If you're out on a mission at 19:00, the party waits for the next evening. It never overlaps a horde.</p>
+
+    <h3 class="subhead">Trading post and shop</h3>
+    <ul class="bullets">
+      <li><strong>Trading post:</strong> next to the plaza. Its swaps turn one thing into another: coins or gems for ore, wood for ore, food for water and so on. Each Trader allows 2 swaps a day per level, and the Market's level adds to what you get.</li>
+      <li><strong>Shop:</strong> open it from the main menu. It swaps gems for coins and coins for gems, and gems for tool kits, beams, building materials and stock. The village's wares unlock once the village does.</li>
+    </ul>
+
+    <h3 class="subhead">Rex and the dog shed</h3>
+    <ul class="bullets">
+      <li><strong>The rescue:</strong> Rex sits in a cage by the Bog Brute's lair on mission 10. Beat the boss and the cage opens. Rex follows you for the rest of the mission and bites zombies that come near you.</li>
+      <li><strong>The shed:</strong> built next to the plaza in 6 parts: footing, floor, walls, roof, door and chain post, and bed and bowl. Each one costs materials, shows on the shed and makes Rex bite 10% harder.</li>
+      <li><strong>Missions:</strong> once Rex is rescued and the shed is finished, he comes along on every mission. In the village he is always with you.</li>
+    </ul>
+
+    <h3 class="subhead">Fighting in the village</h3>
+    <p>The joystick, attack button and fart button sit exactly where they do in the stages. Your health is the same as in missions (base, Health upgrade and iron plate), and the bar only shows during a horde.</p>
   </section>
 
   <section id="horde" class="section">
@@ -258,7 +288,11 @@
       </article>
       <article class="card">
         <h3>Raids</h3>
-        <p>Zombies that reach the stores steal food, water, wood and ore in a sack. Kill them to get it back. At most a quarter of each stock can go in one night.</p>
+        <p>Zombies always appear off screen on a road you can't see, then walk in. Ones that reach the stores at the crossroads rummage from stall to stall and steal food, water, wood and ore into a sack. After 3 thefts they run back out the way they came. Kill them to get it back, because one that escapes keeps what it took. At most a quarter of each stock can go in one night.</p>
+      </article>
+      <article class="card">
+        <h3>Clearing the night</h3>
+        <p>Kill every zombie to clear the night. Villagers hide at home and guards climb their watchtowers. Zombies still there at 07:00 leave with what they carry.</p>
       </article>
       <article class="card">
         <h3>If you go down</h3>
@@ -267,8 +301,8 @@
     </div>
     <h3 class="subhead">Defenses</h3>
     <ul class="bullets">
-      <li><strong>Barricades:</strong> place them from the Build panel for 8 wood each, up to 20. Zombies stop and hack at them. Stand next to one to repair it.</li>
-      <li><strong>Watchtowers:</strong> build them on the 11 stone pads outside the wall, up to level 3. Each level adds health, range, damage and fire rate. A tower only shoots with a Guard on it, and a higher-level guard shoots harder.</li>
+      <li><strong>Barricades:</strong> place them from the Build panel. A ghost shows in front of you, green where it fits. Each costs 8 wood and has 150 health, and you can have up to 20. Zombies stop and hack at them. Stand next to one to repair it, or take it down for half the wood (not during a horde).</li>
+      <li><strong>Watchtowers:</strong> build them on the 11 stone pads outside the wall, up to level 3. Each level adds health, range, damage and fire rate. A tower only shoots with a Guard on it, and a higher-level guard shoots harder. Zombies can break towers, and you repair them for wood.</li>
     </ul>
     <p class="note">Each screen shows a step-by-step guide the first time you open it.</p>
   </section>
@@ -305,7 +339,7 @@
       </details>
       <details>
         <summary>How many missions and zombie types are there?</summary>
-        <p>There are 10 missions across the Forest and the Swamp, 5 zombie types and the Log Brute boss at the end of mission 5.</p>
+        <p>There are 10 missions across the Forest and the Swamp, 5 zombie types and two bosses: the Log Brute at the end of mission 5 and the Bog Brute at the end of mission 10.</p>
       </details>
       <details>
         <summary>Do I lose my coins and gems if I get knocked out in the village?</summary>
@@ -318,7 +352,8 @@
     <h2>Coming next</h2>
     <div class="grid">
       <article class="card"><h3>More sounds</h3><p>Proper sounds for the horde horn, arrows and breaking wood. For now they borrow existing sounds.</p></article>
-      <article class="card"><h3>A third region</h3><p>A new region, and possibly a swamp boss.</p></article>
+      <article class="card"><h3>A third region</h3><p>A new region after the Swamp.</p></article>
+      <article class="card"><h3>Building-materials mode</h3><p>A mode for searching out building materials.</p></article>
       <article class="card"><h3>Balancing</h3><p>Tuning the difficulty and testing the tap games on more phones.</p></article>
     </div>
   </section>

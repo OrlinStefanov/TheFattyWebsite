@@ -9,11 +9,12 @@ Act like a senior full-stack developer: own the whole feature from the static fr
 2D top-down zombie action game for Android, built in Unity 6. You fight with a physics belt, rescue villagers from cages, and they join your village where jobs pay for upgrades.
 - **Loop:** pick a mission -> play the stage (fight, chests, free cages) -> chest screen pays coins/gems on first completion -> village (jobs, upgrades, forge) -> each mission advances the village one day.
 - **Combat:** joystick + attack button, belt swing with spam-combo heat (up to 2.5x speed), stamina, auto flashlight, day/night, roofs fade indoors.
-- **Zombies:** Normal, Crawler, Runner, Brute, Spitter; boss Log Brute (mission 5).
+- **First launch:** tutorial (find the belt in a chest, zombie counter, Skip Tutorial in the pause menu).
+- **Zombies:** Normal, Crawler, Runner, Brute, Spitter; bosses Log Brute (mission 5) and Bog Brute (mission 10, guards the caged dog Rex).
 - **Power-ups:** Beer, Burger, Energy drink, Fart (unlocked after mission 5), Beans.
-- **Missions:** 10 across Forest (1-5) and Swamp (6-10). Mission 1: 15 zombies, 50 coins + 2 gems. Mission 10: 45 zombies x1.5 health/damage, 800 coins + 6 gems.
-- **Village:** 8 jobs, 7 upgradeable work buildings (max level 3, output up to x2.25), forge (player upgrades + crafting), beer party every 2 days, nightly horde (horn 20:00, attack 21:00; barricades, watchtowers with guards).
-- **Planned:** proper horde/arrow/wood sounds, a third region (maybe a swamp boss), balancing.
+- **Missions:** 10 across Forest (1-5) and Swamp (6-10). Mission 1: 15 zombies, 50 coins + 2 gems. Mission 10: 25 zombies x2.0 health / x1.8 damage, 800 coins + 6 gems. Each mission hides 3-6 loot chests (about 1 in 6 golden, with gems).
+- **Village:** 9 jobs (incl. Trader), 7 upgradeable work buildings (max level 3, output up to x2.25), forge (player upgrades + crafting), trading post and shop, Rex the dog + dog shed, beer party every 2 days, nightly horde (horn 20:00, attack 21:00; barricades, watchtowers with guards, raiders that steal and flee).
+- **Planned:** proper horde/arrow/wood sounds, a third region, a building-materials mode, balancing and testing the tap games on phones.
 Keep website copy consistent with this; do not invent features.
 
 ## Layout
