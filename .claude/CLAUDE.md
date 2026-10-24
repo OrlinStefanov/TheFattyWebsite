@@ -46,7 +46,7 @@ Keep website copy consistent with this; do not invent features.
 - `cd api && npm run release -- <apk> <version> --dry-run` checks R2 + Supabase without uploading
 
 ## SEO and marketing
-Use the `seo-marketing` agent (`.claude/agents/seo-marketing.md`) for SEO audits, keyword and copy work and promotion planning. Site facts: GitHub Pages project page (no custom domain: no root robots.txt, shared github.io authority), JSON-LD in `index.html`, `sitemap.xml`, `assets/og-image.png` (branded placeholder, replace with a real screenshot), fonts self-hosted in `assets/fonts/` and `api/public/admin/fonts/` (no third-party requests; the API CSP allows only 'self'). Never add fake ratings, reviews or counts to the markup.
+Use the `seo-marketing` agent (`.claude/agents/seo-marketing.md`) for SEO audits, keyword and copy work and promotion planning. Site facts: GitHub Pages project page (no custom domain: no root robots.txt, shared github.io authority), JSON-LD in `index.html`, `sitemap.xml`, `assets/og-image.png` (share image built from the game art; brand files in `assets/brand/`: logo, mobile logo, YouTube banner), fonts self-hosted in `assets/fonts/` and `api/public/admin/fonts/` (no third-party requests; the API CSP allows only 'self'). Never add fake ratings, reviews or counts to the markup.
 
 ## Security review
 Run the `security-reviewer` agent (`.claude/agents/security-reviewer.md`) after changes to auth, cookies, headers, routes, SQL or the admin UI.
